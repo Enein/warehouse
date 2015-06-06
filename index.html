@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<title>АВТОМАТИЗИРОВАННЫЙ СКЛАД</title>
+	<meta name="author" content="eneinman@gmail.com" />
+
+	<link type="text/css" rel="StyleSheet" href="src/styles.css" />
+	<link type="text/css" rel="StyleSheet" href="src/form.css">
+	<link type="text/css" rel="StyleSheet" href="src/progress.css">
+	<link type="text/css" rel="StyleSheet" href="src/jquery.nouislider.min.css">
+
+	<script src="src/pixi.js"></script>
+	<script src="src/pathfinding.js"></script>
+
+	<script type="text/javascript" src="src/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript" src="src/jquery.nouislider.min.js"></script>
+	<!--[if lt IE 9]><script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+
+<body>
+
+<div id="header">
+	МОДЕЛЬ СИСТЕМЫ УПРАВЛЕНИЯ АВТОМАТИЗИРОВАННЫМ СКЛАДОМ
+</div>
+
+<div id="main">
+
+	<div id="initial" > <!-- style="display:none"  -->
+		<h1 class="register-title" id="initA">ПУСК</h1>
+		<form class="register">
+			<div class="progress">
+				<div class="progress-bar"></div>
+			</div>
+	  
+			<div class="register-switch rsw-first">
+				<input type="radio" value="T" id="testMode" class="register-switch-input" disabled>
+				<label for="testMode" class="register-switch-label rs-first">Отладочный режим</label>
+			</div>
+
+			<input type="button" value="ДАЛЕЕ" class="register-button rb-first"/>
+		</form>
+	</div>
+
+	<div id="options">
+		<form class="register">
+			<span> Количество рядов: </span>
+				<div id="rows"></div>
+				<table><td>1</td> <td id="rowsN">1</td> <td>5</td></table>
+			<span> Стеллажей в ряду: </span>
+				<div id="cells"></div>
+				<table><td>8</td> <td id="cellsN">8</td> <td>64</td></table>
+			<span> Роботов-транспортеров: </span>
+				<div id="bots"></div>
+				<table><td>1</td> <td id="botsN">1</td> <td id="botsL">1</td></table>
+			<input type="button" value="СОЗДАТЬ" class="register-button rb-second"/>
+		</form>
+	</div>
+
+	<div id="render">
+	</div>
+
+	<div id="db">
+		<div class="hdr">▲ БАЗА ДАННЫХ ▲</div>
+		<div class="black">
+			<table style="width:100%" cellpadding="0" cellspacing="0" id="rList">
+				<tr>
+					<td colspan="6" class="tdHead">СПИСОК РОБОТОВ</td>
+				</tr>
+				<tr>
+					<td width="10%" class="hiTd">ID робота</td>
+					<td class="hiTd">IP адрес</td>
+					<td width="25%" class="hiTd">Текущий приказ</td>
+					<td class="hiTd">Координаты</td>
+					<td width="14%" class="hiTd">Обслужено за смену</td>
+					<td width="14%" class="hiTd">Время работы</td>
+				</tr>
+
+				<tr>
+					<td colspan="6" class="tdHead">СПИСОК СТЕЛЛАЖЕЙ</td>
+				</tr>
+			</table>
+			<div id="sList">
+				<table id="sDB" style="width:100%" cellpadding="0" cellspacing="0">
+					<tr class="hiTr">
+						<td width="10%" class="hiTd">ID стеллажа</td>
+						<td width="30%" class="hiTd">Текущий статус</td>
+						<td class="hiTd">Координаты</td>
+						<td width="18%" class="hiTd">Обслужено грузов</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<div id="ui">
+		<div id="l0" class="window">
+			<a class="button c1" href="javascript://"><div>ПОДАТЬ ИЗДЕЛИЕ</div></a>
+			<input id="l4" type="checkbox" name="load" value="ПОЛНАЯ ЗАГРУЗКА"> <label for="l4"><b>ПОЛНАЯ ЗАГРУЗКА</b></label><br/>
+			<input id="l1" type="radio" name="load" value="ближайший свободный"> <label for="l1">ближайший свободный</label><br/>
+			<input id="l2" type="radio" name="load" value="ближайший к выходу"> <label for="l2">ближайший к выходу</label><br/>
+			<input id="l3" type="radio" name="load" value="ручная загрузка"> <label class="l3" for="l3">ручная загрузка</label>
+		</div>
+		<div id="u0" class="window">
+			<a class="button c2" href="javascript://"><div>ВЫГРУЗИТЬ ИЗДЕЛИЕ</div></a>
+			<input id="u4" type="checkbox" name="unload" value="ПОЛНАЯ ВЫГРУЗКА"> <label for="u4"><b>ПОЛНАЯ ВЫГРУЗКА</b></label><br/>
+			<input id="u1" type="radio" name="unload" value="ближайший стеллаж"> <label for="u1">ближайший стеллаж</label><br/>
+			<input id="u2" type="radio" name="unload" value="дальний стеллаж"> <label for="u2">дальний стеллаж</label><br/>
+			<input id="u3" type="radio" name="unload" value="ручная выгрузка"> <label class="u3" for="u3">ручная выгрузка</label>
+		</div>
+		
+		<div class="window">
+			Алгоритм поиска
+			<select id="alg" size="5">
+				<option value="0">Алгоритм A*</option>
+				<option value="1">Поиск в ширину</option>
+				<option value="2">Жадный поиск</option>
+				<option value="3">Алгоритм Дейкстры</option>
+				<option value="4">Jump Point Search</option>
+			</select>
+		</div>
+
+		<div class="window">
+			Ускорение имитации
+			<div class="speed"></div>
+		</div>
+
+		<a class="button c3" href="javascript://" onclick="toggleUI()"><div>▲ СВЕРНУТЬ ПАНЕЛЬ ▲</div></a>
+	</div>
+
+	<div id="sInfo">
+		<div class="info_id" style="font-weight:bold">S000</div>
+		<div class="info_xy">( <span>X</span> : <span>Y</span> )</div>
+		<div class="info_task" style="margin-top:18px">Текущий статус:<br/><span>INPUT::1:T01</span></div>
+		<div class="info_loads" style="margin-top:18px">Обслужено грузов: <span>0</span></div>
+	</div>
+
+	<div id="log"> строка состояния </div>
+	<div id="stats"></div>
+	<div id="console"> </div>
+</div>
+
+<div id="footer">
+	КАШУБА ПАВЕЛ © 2014, ПГАСиА АУТП
+</div>
+
+</body>
+
+<script type="text/javascript" src="src/ui.js"></script>
+<script type="text/javascript" src="src/code.js"></script>
+
+</html>
