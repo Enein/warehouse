@@ -3,15 +3,20 @@ var ROWS = 1,
 	ROBOTS = 1,
 	SPEED = 5,
 	OPS = 0,
+
 	isBD = false,
 	isUI = true,
 	isLOG = false,
+
 	L_manual = false,
 	U_manual = false,
+
 	ADD = false,
 	REM = false,
+
 	L_ti = false,
 	U_ti = false,
+
 	TASK = false,
 	inTask = [],
 	outTask = [];
