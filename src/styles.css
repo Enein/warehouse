@@ -1,0 +1,259 @@
+a { text-decoration:none }
+body {
+	background:#222;
+	text-align:center;
+	margin:0;
+	padding:0 !important;
+	overflow:hidden;
+}
+#header, #footer {
+	float:right;
+	color:#777;
+	font-family: "Segoe UI", "Helvetica";
+	font-size: 10pt;
+	font-weight: 700;
+	margin-top:6px;
+}
+#main {
+	width:95%;
+	margin:0 auto;
+	text-align:left;
+	color:#d9d9d9;
+	border:2px dashed #313131;
+	overflow:hidden;
+	font-family:"Arial", sans-serif;
+	font-size:18pt;
+	line-height:20px;
+}
+#render {
+	position:relative;
+	margin:0 auto;
+	text-align:center;
+	z-index:2;
+}
+#db, #console {
+	display:none;
+	position:absolute;
+	width:100%;
+	top:0;
+	margin:0 auto;
+	text-align:center;
+	z-index:4;
+}
+#db div.black {
+	background:black;
+}
+#db table td {
+	border:1px solid #333;
+	border-top-width:0;
+	margin:0;
+	padding:3px 0;
+	font:10pt courier new;
+}
+#db table td.hiTd {
+	color:yellow;
+	font-family:"Segoe UI", "Helvetica";
+	font-weight:bold;
+	font-size:11pt;
+}
+#db table td.tdHead {
+	width:100%;
+	font-weight:bold;
+	font-size:14pt;
+	color:greenyellow;
+	font-family:"Segoe UI", "Helvetica";
+}
+#ui {
+	display:none;
+	position:absolute;
+	width:100%;
+	top:15px;
+	left:15px;
+	margin:0 auto;
+	z-index:3;
+	width:200px;
+}
+#sList {
+    overflow-y:scroll !important;
+	height:452px;
+}
+#sInfo {
+	display:none;
+	position:absolute;
+	width:216px;
+	height:145px;
+	padding:2px;
+	border:3px solid #47933a;
+	background:#222;
+	top:0;
+	left:0;
+	z-index:3;
+	color:#fff;
+	font-family: Verdana;
+	font-size:11pt;
+	opacity:0.8;
+}
+#options {
+	margin-top:50px;
+	display:none;
+}
+#options .register {
+	padding-left:30px;
+	padding-right:30px;
+}
+#options span {
+	color:#333;
+	font-size:13pt;
+	font-family:"Segoe UI", "Helvetica";
+	font-weight:700;
+	line-height:40px;
+}
+#options table {
+	width:100%;
+	margin-top:18px;
+	text-align:center;
+	color:royalblue;
+	font-weight:700;
+	font-size:24pt;
+}
+#options table td {
+	width:33%;
+}
+#options table td:first-child { text-align:left; font-size:13pt; color:#aaa; font-weight:normal; }
+#options table td:last-child { text-align:right; font-size:13pt; color:#aaa; font-weight:normal; }
+#footer {
+	position:absolute;
+	bottom:5px;
+}
+#header:hover, #footer:hover {
+	color:#ffff00;
+	cursor:default;
+}
+a.button div {
+	font-family:"Segoe UI","Helvetica";
+	font-size:10pt;
+	padding:2px 9px;
+	font-weight:normal;
+	color:#fff;
+	cursor:pointer;
+	width:180px;
+	margin-bottom:5px;
+	border:2px solid #000;
+}
+a.button.c1 div, a.button.c2 div {
+	width:158px;
+}
+a.button.c1 div {
+	background-color:#21ae27;
+	border-color:#19891e;
+}
+a.button.c2 div {
+	background-color:#e26114;
+	border-color:#a44f1b;
+}
+a.button.c3 div {
+	padding:0 9px;
+	text-align:center;
+}
+a.button.c3 div {
+	background-color:#767f94;
+	border-color:#4d5772;
+}
+a.button.c4 div {
+	width:110px;
+	font-size:8pt;
+	margin-top:7px;
+	padding:0 9px;
+	background-color:#806CA3;
+	border-color:#533F64;
+}
+a.button:hover div {
+	background:#777;
+	border:2px solid #666;
+}
+div.hdr {
+	width:100%;
+	height:24px;
+	opacity:0.5;
+	padding-top:6px;
+	background-color:#000;
+	cursor:pointer;
+}
+div.hdr:hover {
+	opacity:0.75;
+	color:#bbffbb;
+}
+#log {
+	position:absolute;
+	height:20px;
+	padding:0 6px 3px 6px;
+	bottom:30px;
+	left:0;
+	z-index:3;
+	color:lime;
+	font-family:courier new;
+	font-size:10pt;
+	cursor:pointer;
+}
+#log:hover {
+	letter-spacing:0.1em;
+}
+#stats {
+	position:absolute;
+	top:0;
+	right:2px;
+	z-index:3;
+	color:red;
+	line-height:10px;
+	font-family:courier new;
+	font-size:8pt;
+	text-align:right;
+}
+#console {
+	font-family: courier new;
+	font-size:10pt;
+	overflow-y:scroll !important;
+	background:#fff;
+	color:#111;
+	text-align:left;
+	padding-top:5px;
+	line-height:13px;
+}
+div.window {
+	font-family:"Segoe UI","Helvetica";
+	font-size:10pt;
+	padding:4px 9px;
+	font-weight:normal;
+	background:#272727;
+	border:2px solid #505050;
+	color:#fff;
+	width:180px;
+	margin-bottom:3px;
+	text-transform:uppercase;
+}
+div.speed {
+	margin:16px 20px;
+}
+select {
+	border:1px solid #505050;
+	cursor:pointer;
+	width:100%;
+	margin:3px 0;
+	padding:2px;
+	font-size:11pt;
+	font-weight:bold;
+	text-indent:3px;
+	text-transform:none;
+	color:#333;
+}
+select#outTask {
+	margin-top:7px;
+}
+div.alginfo:hover {
+	opacity:0.8;
+}
+#l1, #l2, #l3, #l4, label {
+	cursor:pointer;
+	font-size:10pt;
+	text-transform:none;
+}
